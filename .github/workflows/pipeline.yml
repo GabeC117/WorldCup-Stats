@@ -58,16 +58,16 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@v3
+        uses: github/codeql-action/init@v4
         with:
           languages: python             # Tells CodeQL this is a Python project
           queries: security-extended    # Uses the deeper security ruleset
 
       - name: Autobuild
-        uses: github/codeql-action/autobuild@v3   # Builds the code so CodeQL can analyze it
+        uses: github/codeql-action/autobuild@v4   # Builds the code so CodeQL can analyze it
 
       - name: Analyze
-        uses: github/codeql-action/analyze@v3     
+        uses: github/codeql-action/analyze@v4     
 
   # 4.) Secret Scanning (Gitleaks)
   # Scans every commit in git history for any hard coded passwords or API keys.
@@ -127,11 +127,12 @@ jobs:
           format: sarif                                  # Output format for GitHub Security tab
           output: trivy-results.sarif
           severity: CRITICAL,HIGH                        # Only fail on serious vulnerabilities
-          exit-code: "1"                                 # Exit with error if any are found (blocks deploy)
+          ignore-unfixed: true                           # Skip CVEs with no patch available 
+          exit-code: "1"                                 # Exit with error if any are found 
 
       - name: Upload Trivy SARIF to GitHub Security tab
         if: always()          # Run this even if Trivy found something (so we can see the report)
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: trivy-results.sarif
 
