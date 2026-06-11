@@ -14,15 +14,21 @@ _HTML = """
   <meta charset="UTF-8">
   <title>World Cup Player Search</title>
   <style>
-    body { font-family: sans-serif; max-width: 860px; margin: 40px auto; padding: 0 20px; background: #f9f9f9; }
+    body { font-family: sans-serif; max-width: 860px; margin: 40px auto;
+           padding: 0 20px; background: #f9f9f9; }
     h1 { color: #BF5700; }
     form { display: flex; gap: 10px; margin-bottom: 30px; }
-    input[type=text] { flex: 1; padding: 10px; font-size: 1rem; border: 1px solid #ccc; border-radius: 4px; }
-    button { padding: 10px 20px; background: #BF5700; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 1rem; }
+    input[type=text] { flex: 1; padding: 10px; font-size: 1rem;
+                       border: 1px solid #ccc; border-radius: 4px; }
+    button { padding: 10px 20px; background: #BF5700; color: white;
+             border: none; border-radius: 4px; cursor: pointer; font-size: 1rem; }
     button:hover { background: #a04800; }
     .grid { display: flex; flex-wrap: wrap; gap: 20px; }
-    .card { background: white; border: 1px solid #ddd; border-radius: 8px; padding: 16px; width: 180px; text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,0.07); }
-    .card img { width: 120px; height: 120px; object-fit: cover; border-radius: 50%; background: #eee; }
+    .card { background: white; border: 1px solid #ddd; border-radius: 8px;
+            padding: 16px; width: 180px; text-align: center;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.07); }
+    .card img { width: 120px; height: 120px; object-fit: cover;
+                border-radius: 50%; background: #eee; }
     .card .name { font-weight: bold; margin: 10px 0 4px; font-size: 0.95rem; }
     .card .meta { color: #666; font-size: 0.82rem; line-height: 1.5; }
     .none { color: #888; }
