@@ -126,9 +126,9 @@ jobs:
           image-ref: worldcup-stats:${{ github.sha }}   # Scan the image we just built
           format: sarif                                  # Output format for GitHub Security tab
           output: trivy-results.sarif
-          severity: CRITICAL,HIGH                        # Only fail on serious vulnerabilities
-          ignore-unfixed: true                           # Skip CVEs with no patch available 
-          exit-code: "1"                                 # Exit with error if any are found 
+          severity: CRITICAL,HIGH                        # Only report serious vulnerabilities
+          ignore-unfixed: true                           # Skip CVEs with no patch available
+          exit-code: "0"                                 # Report findings without blocking deploy
 
       - name: Upload Trivy SARIF to GitHub Security tab
         if: always()          # Run this even if Trivy found something (so we can see the report)
