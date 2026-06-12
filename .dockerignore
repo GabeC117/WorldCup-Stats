@@ -1,0 +1,9 @@
+.git
+.github
+tests/
+requirements-dev.txt
+*.md
+*.env
+.env*
+__pycache__
+*.pyc
