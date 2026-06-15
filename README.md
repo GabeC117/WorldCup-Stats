@@ -62,7 +62,7 @@ push / PR
 
 **Deploy** is the final step and only runs on pushes to `main`. It publishes the verified container image to GitHub Container Registry, tagged with both the commit SHA and `latest`.
 
-
+---
 
 ## Why these security layers
 
@@ -86,7 +86,7 @@ CodeQL only reads the Python source files, so it has no visibility into the OS o
 
 **Why not DAST?** Dynamic testing makes sense for a service with complex business logic and authenticated flows. For a two-endpoint read-only app, the signal-to-noise ratio doesn't justify it here.
 
-
+---
 
 ## Running it locally
 
