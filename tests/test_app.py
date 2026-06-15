@@ -75,3 +75,21 @@ def test_index_no_results(client):
     r = client.get("/?q=xyznotaplayer")
     assert r.status_code == 200
     assert b"No players found" in r.data
+
+
+def test_query_too_long(client):
+    r = client.get("/api/search?q=" + "a" * 101)
+    assert r.status_code == 400
+    assert "too long" in r.get_json()["error"]
+
+
+def test_query_invalid_characters(client):
+    r = client.get("/api/search?q=<script>alert(1)</script>")
+    assert r.status_code == 400
+    assert "invalid characters" in r.get_json()["error"]
+
+
+def test_index_query_too_long(client):
+    r = client.get("/?q=" + "a" * 101)
+    assert r.status_code == 400
+    assert b"too long" in r.data

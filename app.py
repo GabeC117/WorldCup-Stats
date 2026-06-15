@@ -1,4 +1,5 @@
 import os
+import re
 import requests
 from flask import Flask, jsonify, render_template_string, request
 
@@ -80,11 +81,23 @@ def _search_players(name: str) -> list:
     return resp.json().get("player") or []
 
 
+def _validate_query(query: str):
+    """Return an error string if the query is invalid, otherwise None."""
+    if len(query) > 100:
+        return "Query too long — maximum 100 characters."
+    if not re.match(r"^[\w\s]+$", query):
+        return "Query contains invalid characters."
+    return None
+
+
 @app.route("/")
 def index():
     query = request.args.get("q", "").strip()
     if not query:
         return render_template_string(_HTML, query="", players=[], error=None)
+    err = _validate_query(query)
+    if err:
+        return render_template_string(_HTML, query=query, players=[], error=err), 400
     try:
         players = _search_players(query)
         return render_template_string(_HTML, query=query, players=players, error=None)
@@ -97,6 +110,9 @@ def search_json():
     query = request.args.get("q", "").strip()
     if not query:
         return jsonify({"error": "Missing query parameter ?q="}), 400
+    err = _validate_query(query)
+    if err:
+        return jsonify({"error": err}), 400
     try:
         return jsonify(_search_players(query))
     except Exception as exc:
